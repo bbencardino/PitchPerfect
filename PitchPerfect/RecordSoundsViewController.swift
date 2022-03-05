@@ -13,15 +13,10 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         super.viewDidLoad()
     }
 
-    func configureUI(button: UIButton, enable: Bool) {
+    private func configureUI(button: UIButton, enable: Bool) {
 
-        if enable == false {
-            button.isEnabled = enable
-            recordingLabel.text = "Tap to record"
-        } else {
-            button.isEnabled = enable
-            recordingLabel.text = "Recording..."
-        }
+        button.isEnabled = enable
+        recordingLabel.text = enable ? "Recording..." :  "Tap to record"
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -49,8 +44,8 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     @IBAction func stopRecording(_ sender: UIButton) {
         configureUI(button: stopRecordingButton, enable: false)
         audioRecorder.stop()
-            let audioSession = AVAudioSession.sharedInstance()
-            try! audioSession.setActive(false)
+        let audioSession = AVAudioSession.sharedInstance()
+        try! audioSession.setActive(false)
     }
 
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
